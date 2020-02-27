@@ -1,0 +1,17 @@
+{
+  "extends": "airbnb", 
+  "plugins": ["react-native"],
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "jest": true,
+    "react-native/react-native": true
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-use-before-define": ["error", { "functions": true, "classes": true, "variables": false }], // disable the rule for variables, but enable it for functions and classes
+    "react-native/no-unused-styles": 2, // disallow unused styles
+    "react-native/no-inline-styles": 2, // disallow styles declared within the component itself
+    "react-native/no-color-literals": 2 // enforces variable names to be used for storing colors
+  }
+}
