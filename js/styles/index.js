@@ -6,3 +6,7 @@
 
 export const BLACK = '#000000';
 export const WHITE = '#FFFFFF';
+
+
+// Generic components color
+export const SEPARATOR = '#E0E0E0';
