@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../Home';
 import Tab1Screen from '../Tab1Screen';
 import Tab2Screen from '../Tab2Screen';
+import RickAndMorty from '../RickAndMorty';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +23,7 @@ const Nav = () => (
     <Stack.Navigator>
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="NavPlayground" component={ExampleTabNavigation} />
+      <Stack.Screen name="RickAndMorty" component={RickAndMorty} />
     </Stack.Navigator>
   </NavigationContainer>
 );
