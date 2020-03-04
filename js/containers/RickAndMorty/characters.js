@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View, StyleSheet, Text, Image, FlatList,
 } from 'react-native';
@@ -67,6 +67,9 @@ const Characters = () => {
       page: 1,
     },
   });
+
+  const [fetchedPage, setFetchedPage] = useState({});
+
   if (loading) return <Loading />;
   if (error) return <Error />;
 
@@ -85,11 +88,16 @@ const Characters = () => {
       ItemSeparatorComponent={() => <Separator />}
       onEndReachedThreshold={0.5}
       onEndReached={() => {
+        const page = (data.characters.results.length / 20) + 1;
+        setFetchedPage({ ...fetchedPage, ...{ [page]: true } });
         fetchMore({
           variables: {
-            page: (data.characters.results.length / 20) + 1,
+            page,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
+            if (fetchedPage[page]) {
+              return prev;
+            }
             if (!fetchMoreResult || !fetchMoreResult.characters.results) return prev;
             return {
               ...prev,
