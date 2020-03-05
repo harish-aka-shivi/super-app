@@ -32,7 +32,7 @@ const Loading = () => (
 
 const Error = () => (
   <View style={styles.error}>
-    <Text>Loading</Text>
+    <Text>Error</Text>
   </View>
 );
 
