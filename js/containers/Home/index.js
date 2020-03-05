@@ -2,40 +2,22 @@ import React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import PropTypes from 'prop-types';
 
-const ScreenNavigatorButton = ({ onPress, title }) => (
-  <View style={styles.buttonContainer}>
-    <Button
-      style={styles.button}
-      title={title}
-      onPress={onPress}
-    />
-  </View>
-);
-
-ScreenNavigatorButton.propTypes = {
-  onPress: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-};
-
 const Home = ({ navigation: { navigate } }) => (
   <View style={styles.homeRoot}>
-    <ScreenNavigatorButton
-      title="Navigation Playground"
-      onPress={() => {
-        navigate('NavPlayground');
-      }}
-    />
-    <ScreenNavigatorButton
-      title="Rick and Morty"
-      onPress={() => {
-        navigate('RickAndMorty');
-      }}
-    />
+    <View style={styles.buttonContainer}>
+      <Button
+        style={styles.button}
+        title="Navigation playground"
+        onPress={() => {
+          navigate('NavPlayground');
+        }}
+      />
+    </View>
   </View>
 );
 
 Home.propTypes = {
-  navigation: PropTypes.shape({ navigate: PropTypes.func.isRequired }).isRequired,
+  navigation: PropTypes.objectOf({}).isRequired,
 };
 
 const styles = StyleSheet.create({
