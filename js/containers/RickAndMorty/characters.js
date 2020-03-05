@@ -131,6 +131,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     borderRadius: 2,
+    marginTop: 16,
+    marginBottom: 16,
     height: wp('35%'),
   },
   characterImage: {
@@ -140,10 +142,8 @@ const styles = StyleSheet.create({
     borderColor: SEPARATOR,
     borderWidth: StyleSheet.hairlineWidth,
     width: wp('90%'),
-    marginTop: 16,
     marginLeft: 8,
     marginRight: 8,
-    marginBottom: 16,
   },
   descriptionContainer: {
     flex: 0.5,
