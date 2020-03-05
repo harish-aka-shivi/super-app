@@ -107,6 +107,8 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginEnd: 16,
     alignItems: 'center',
+    paddingTop: 16,
+    paddingBottom: 16,
   },
   numberContainer: {
     flexDirection: 'row',
@@ -118,10 +120,10 @@ const styles = StyleSheet.create({
     borderColor: SEPARATOR,
     borderWidth: StyleSheet.hairlineWidth,
     width: widthPercentageToDP('90%'),
-    marginTop: 24,
+    // marginTop: 24,
     marginLeft: 8,
     marginRight: 8,
-    marginBottom: 24,
+    // marginBottom: 24,
   },
   title: {
     color: BLACK,
