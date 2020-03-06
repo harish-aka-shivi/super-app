@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { BLACK, WHITE } from '../../styles';
+import { WHITE, BLACK } from '../../../styles';
 
-const Screen2 = () => (
+const Screen1 = () => (
   <View style={styles.root}>
     <Text style={styles.text}>
-      Screen 2
+      Screen 1
     </Text>
   </View>
 );
@@ -13,13 +13,13 @@ const Screen2 = () => (
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    color: BLACK,
+    color: WHITE,
     alignItems: 'center',
     justifyContent: 'center',
   },
   text: {
-    color: WHITE,
+    color: BLACK,
   },
 });
 
-export default Screen2;
+export default Screen1;
