@@ -3,18 +3,19 @@ import { View, StyleSheet } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import {
-  onGestureEvent, useValues, useDiff, canvas2Polar,
+  onGestureEvent, useValues, useDiff, canvas2Polar, toDeg,
 } from 'react-native-redash';
 import PropTypes from 'prop-types';
 import { CENTER_WHEEL_COLOR, BLACK } from '../../styles';
 import Buttons, { size } from './buttons';
+import Stickers from './stickers';
 
 const {
-  sub, cond, greaterThan, abs, useCode, block, add, debug, set,
+  sub, cond, greaterThan, abs, useCode, block, add, debug, set, max, eq,
 } = Animated;
 
-
 const { PI } = Math;
+
 const hole = size * 0.39;
 const center = {
   x: size / 2,
@@ -36,23 +37,31 @@ const ClickWheel = ({ alpha, command }) => {
 
   const dx = useDiff(x, []);
   const dy = useDiff(y, []);
-  const x0 = sub(x, dx);
-  const y0 = sub(y, dy);
-  const a0 = canvas2Polar({ x: x0, y: y0 }, center.x, center.y).theta;
-  const a = canvas2Polar({ x, y }, center.x, center.y).theta;
+  const x0 = cond(eq(state, State.ACTIVE), sub(x, dx), x);
+  const y0 = cond(eq(state, State.ACTIVE), sub(y, dy), y);
+  const a0 = canvas2Polar({ x: x0, y: y0 }, center).theta;
+  const a = canvas2Polar({ x, y }, center).theta;
   const da = delta(a0, a);
-  useCode(() => block([set(alpha, add(alpha, da)), debug('alpha', command)]));
-  // const onGestureEvent = event([{ nativeEvent: { x, y, state } }]);
+
+  useCode(
+    () => block([set(alpha, max(add(alpha, da), 0)), debug('alpha', toDeg(alpha))]),
+    [alpha, da],
+  );
   return (
     <View style={styles.container}>
       <View style={styles.center} />
-      <Buttons>
+      <Buttons command={command}>
         <PanGestureHandler
           onGestureEvent={gestureHandler.onGestureEvent}
+          onHandlerStateChange={gestureHandler.onHandlerStateChange}
         >
-          <Animated.View style={StyleSheet.absoluteFill}></Animated.View>
+          <Animated.View style={{
+            ...StyleSheet.absoluteFill,
+          }}
+          />
         </PanGestureHandler>
       </Buttons>
+      <Stickers />
     </View>
   );
 };
