@@ -10,10 +10,11 @@ import {
 import PropTypes, { any } from 'prop-types';
 import { widthPercentageToDP, heightPercentageToDP } from 'react-native-responsive-screen';
 import { useValues } from 'react-native-redash';
-import { RED } from '../../styles';
-import ClickWheel from './clickWheel';
-import { Command } from './buttons';
+import ClickWheel from './ClickWheel/clickWheel';
+import { Command } from './ClickWheel/buttons';
+import { WHITE } from '../../styles';
 
+export const CONTENT_HEIGHT = heightPercentageToDP('45%');
 
 const IpodCustomNavigator = ({
   initialRouteName,
@@ -24,9 +25,16 @@ const IpodCustomNavigator = ({
     children,
     screenOptions,
     initialRouteName,
-    headerMode: 'none',
+    // headerMode: 'none',
   });
   const [alpha, command] = useValues([0, Command.UNDETERMINED], []);
+
+  const currentRoute = state.routes[state.index];
+
+  // add params to each route
+  currentRoute.params = currentRoute
+    ? { ...currentRoute.params, alpha, command } : { alpha, command };
+
   return (
     <View style={styles.root}>
       <View style={styles.stackContainer}>
@@ -50,9 +58,15 @@ IpodCustomNavigator.propTypes = {
 
 const styles = StyleSheet.create({
   stackContainer: {
-    height: heightPercentageToDP('45%'),
-    width: widthPercentageToDP('100%'),
-    backgroundColor: RED,
+    height: CONTENT_HEIGHT,
+    maxHeight: CONTENT_HEIGHT,
+    width: widthPercentageToDP('95%'),
+    backgroundColor: WHITE,
+    marginTop: 8,
+    borderRadius: 8,
+    padding: 4,
+    overflow: 'hidden',
+
   },
   root: {
     flex: 1,

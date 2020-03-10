@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { MaterialCommunityIcons as Icon } from '@expo/vector-icons';
-import { WHITE } from '../../styles';
+import { WHITE } from '../../../styles';
 
 const styles = StyleSheet.create({
   container: {

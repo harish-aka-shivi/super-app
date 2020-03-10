@@ -3,15 +3,15 @@ import { View, StyleSheet } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 import {
-  onGestureEvent, useValues, useDiff, canvas2Polar, toDeg,
+  onGestureEvent, useValues, useDiff, canvas2Polar,
 } from 'react-native-redash';
 import PropTypes from 'prop-types';
-import { CENTER_WHEEL_COLOR, BLACK } from '../../styles';
+import { CENTER_WHEEL_COLOR, BLACK } from '../../../styles';
 import Buttons, { size } from './buttons';
 import Stickers from './stickers';
 
 const {
-  sub, cond, greaterThan, abs, useCode, block, add, debug, set, max, eq,
+  sub, cond, greaterThan, abs, useCode, block, add, set, max, eq,
 } = Animated;
 
 const { PI } = Math;
@@ -44,7 +44,7 @@ const ClickWheel = ({ alpha, command }) => {
   const da = delta(a0, a);
 
   useCode(
-    () => block([set(alpha, max(add(alpha, da), 0)), debug('alpha', toDeg(alpha))]),
+    () => block([set(alpha, max(add(alpha, da), 0))]),
     [alpha, da],
   );
   return (

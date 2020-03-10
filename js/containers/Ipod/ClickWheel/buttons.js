@@ -7,6 +7,7 @@ import {
   onGestureEvent, useValues, useDiff, canvas2Polar, toDeg,
 } from 'react-native-redash';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 export const size = 0.75 * (width - 32);
@@ -14,7 +15,7 @@ export const size = 0.75 * (width - 32);
 const BUTTON_SIZE = size / 3;
 
 const {
-  useCode, and, greaterOrEq, lessOrEq, block, cond, eq, set, debug,
+  useCode, and, greaterOrEq, lessOrEq, block, cond, eq, set, debug, call,
 } = Animated;
 
 export const Command = {
@@ -55,6 +56,16 @@ const isInRegion = (x, y, region) => and(
     greaterOrEq(y, region.y), lessOrEq(y, region.y + BUTTON_SIZE),
   ),
 );
+
+export const useOnPress = ({
+  active, onPress, target, command,
+}) => {
+  const navigation = useNavigation();
+  useCode(() => cond(and(active, eq(command, target)), [
+    call([], () => onPress(navigation)),
+    set(command, Command.UNDETERMINED),
+  ]), [active, onPress, target, command]);
+};
 
 const Buttons = ({ children, command }) => {
   const [x, y, state] = useValues([0, 0, State.UNDETERMINED], []);
