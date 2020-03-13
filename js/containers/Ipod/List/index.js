@@ -11,7 +11,9 @@ import { Command, useOnPress } from '../ClickWheel/buttons';
 
 const LIST_ITEM_HEIGHT = 50;
 
-const { cond, diffClamp } = Animated;
+const {
+  cond, diffClamp, Value, lessThan, diff, useCode, block, not, set, multiply, add, sub,
+} = Animated;
 
 const gray = processColor(CENTER_WHEEL_COLOR);
 const white = processColor(WHITE);
@@ -33,6 +35,10 @@ const ListItem = ({
   );
 };
 
+const isInViewPort = (y, translateY) => (between(
+  y, translateY, translateY + CONTENT_HEIGHT,
+));
+
 const List = ({
   alpha, command, items,
 }) => {
@@ -43,9 +49,26 @@ const List = ({
   useOnPress({
     active: true, command, target: Command.TOP, onPress: (navigation) => navigation.goBack(),
   });
+  const translateY = new Value(0);
+  const isGoingUp = lessThan(diff(y), 0);
+  useCode(() => {
+    block(
+      cond(
+        not(isInViewPort(y, multiply(-1, translateY))),
+        set(
+          translateY,
+          cond(
+            isGoingUp,
+            [add(translateY, LIST_ITEM_HEIGHT)],
+            [sub(translateY, LIST_ITEM_HEIGHT)],
+          ),
+        ),
+      ),
+    );
+  }, [translateY, y, isGoingUp]);
   return (
-    <View styles={styles.container}>
-      <Animated.View>
+    <View style={styles.container}>
+      <Animated.View style={{ transform: [{ translateY }] }}>
         {
           items.map((item, index) => (
             <ListItem
