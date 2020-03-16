@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { WHITE, BLACK } from '../../styles/index';
+import { WHITE, BLACK } from '../../../styles';
 
 const Screen1 = () => (
   <View style={styles.root}>

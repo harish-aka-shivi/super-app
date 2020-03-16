@@ -31,6 +31,12 @@ const Home = ({ navigation: { navigate } }) => (
         navigate('RickAndMorty');
       }}
     />
+    <ScreenNavigatorButton
+      title="Ipod"
+      onPress={() => {
+        navigate('Ipod');
+      }}
+    />
   </View>
 );
 

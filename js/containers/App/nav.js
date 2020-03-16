@@ -3,9 +3,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../Home';
-import Tab1Screen from '../Tab1Screen';
-import Tab2Screen from '../Tab2Screen';
+import Tab1Screen from '../NavPlayground/Tab1Screen';
+import Tab2Screen from '../NavPlayground/Tab2Screen';
 import RickAndMorty from '../RickAndMorty';
+import Ipod from '../Ipod';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,7 @@ const Nav = () => (
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="NavPlayground" component={ExampleTabNavigation} />
       <Stack.Screen name="RickAndMorty" component={RickAndMorty} />
+      <Stack.Screen name="Ipod" component={Ipod} />
     </Stack.Navigator>
   </NavigationContainer>
 );
