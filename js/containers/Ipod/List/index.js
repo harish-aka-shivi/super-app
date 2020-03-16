@@ -35,9 +35,9 @@ const ListItem = ({
   );
 };
 
-const isInViewPort = (y, translateY) => (between(
-  y, translateY, translateY + CONTENT_HEIGHT,
-));
+const isInViewPort = (y, translateY) => between(
+  y, translateY, add(translateY, CONTENT_HEIGHT),
+);
 
 const List = ({
   alpha, command, items,
@@ -46,26 +46,25 @@ const List = ({
     inputRange: [0, 2 * Math.PI],
     outputRange: [0, CONTENT_HEIGHT],
   }), 0, LIST_ITEM_HEIGHT * items.length);
+  // console.log(y);
   useOnPress({
     active: true, command, target: Command.TOP, onPress: (navigation) => navigation.goBack(),
   });
   const translateY = new Value(0);
   const isGoingUp = lessThan(diff(y), 0);
-  useCode(() => {
-    block(
-      cond(
-        not(isInViewPort(y, multiply(-1, translateY))),
-        set(
-          translateY,
-          cond(
-            isGoingUp,
-            [add(translateY, LIST_ITEM_HEIGHT)],
-            [sub(translateY, LIST_ITEM_HEIGHT)],
-          ),
+  useCode(() => block([
+    cond(
+      not(isInViewPort(y, multiply(translateY, -1))),
+      set(
+        translateY,
+        cond(
+          isGoingUp,
+          add(translateY, LIST_ITEM_HEIGHT),
+          sub(translateY, LIST_ITEM_HEIGHT),
         ),
       ),
-    );
-  }, [translateY, y, isGoingUp]);
+    ),
+  ]), [translateY, y, isGoingUp]);
   return (
     <View style={styles.container}>
       <Animated.View style={{ transform: [{ translateY }] }}>
@@ -95,7 +94,6 @@ List.propTypes = {
   alpha: PropTypes.shape({}).isRequired,
   command: PropTypes.shape({}).isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  navigation: PropTypes.shape({ navigate: PropTypes.func }).isRequired,
 };
 
 ListItem.propTypes = {
