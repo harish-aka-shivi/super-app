@@ -13,14 +13,14 @@ It is using `react-navigation`, `apollo-graphql`, `react-native-animated`, `reac
 # Rick and Morty
 - Use `apollo-graphql` client to consume [rick and morty apis](https://rickandmortyapi.com/) graphql apis.
 - Implement pagination using the same client.
-
-![](docs/statics/rickMorty.png)
+                 
+     <img src="docs/statics/rickMorty.png" height="400">
 
 
 
 # iPod Classic UI
 - Make iPod wheel animation UI to scroll through the list of songs and artist
-- Follow the brilliant [William Candillon](https://github.com/wcandillon) `can it be done in react native series`.
+- Follow the brilliant [William Candillon](https://github.com/wcandillon) `can it be done in react native` series.
 - Make custom navigator for react navigation.
 
-![](docs/statics/iPodLow480.gif)
+    <img src="docs/statics/iPodLow480.gif" height="400">
